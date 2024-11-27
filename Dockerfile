@@ -18,6 +18,6 @@ FROM nginx:1.25-alpine
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=builder --chown=node:node /home/node/dist/browser /usr/share/nginx/html
+COPY --from=builder --chown=node:node /home/node/dist/sakai-ng /usr/share/nginx/html
 COPY nginx.default.conf /etc/nginx/conf.d/default.conf
 
