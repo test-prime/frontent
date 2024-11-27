@@ -88,7 +88,7 @@ export class DataListComponentComponent implements OnInit {
 
     entityDialog: boolean = false;
     deleteEntityDialog: boolean = false;
-    deleteEntitiesDialog: boolean = false;
+    isInvalid = signal(false);
 
     private messageService = inject(MessageService);
     private dataService = inject(DataService);
@@ -99,6 +99,14 @@ export class DataListComponentComponent implements OnInit {
 
     ngOnInit() {
         this.handleNavigation();
+        this.form.statusChanges.pipe(takeUntil(this.destroyed$)).subscribe({
+            next: state => {
+                this.isInvalid.set(state === 'INVALID');
+            },
+            error: err => {
+                console.log('form', err);
+            }
+        });
     }
 
     openNew() {
